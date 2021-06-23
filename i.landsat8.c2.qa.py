@@ -32,6 +32,12 @@
 #% keyword: qa_pixel
 #%End
 
+#%flag
+#%  key: i
+#%  description: Invert output of user requested quality assessment flags
+#%  guisection: Input
+#%end
+
 #%option G_OPT_F_OUTPUT
 #% description: Output file with reclass rules
 #% required: no
@@ -242,6 +248,7 @@ double_bits = {'Not Determined': '00',
 
 def main():
 
+    invert = flags['i']
     output = options.pop('output')
 
     # List for user requested levels of quality conditions
@@ -301,10 +308,15 @@ def main():
                         requested_bits = double_bits[quality_level]
 
                 # Collect requested quality bits for reclassification
-                if requested_bits == quality_bits:
+                if not invert:
+                    if requested_bits == quality_bits:
+                        categories.append(str(category) + ' = NULL')
+                        break
+                else:
+                    if requested_bits != quality_bits:
+                        categories.append(str(category) + ' = NULL')
+                        break
 
-                    categories.append(str(category) + ' = NULL')
-                    break
 
             # Avoid duplicates in reclass rules when several filter are applied
             if requested_bits == quality_bits:
