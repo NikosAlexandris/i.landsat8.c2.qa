@@ -44,34 +44,32 @@
 #%end
 
 #%option
-#% key: designated_fill
+#% key: fill
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Designated Fill (bit 0)
+#% description: Fill data (Yes) or Image data (No) (bit 0)
+#% options: Fill, Image
+#% multiple: No
+#% required : no
+#%end
+
+#%option
+#% key: dilated_cloud
+#% key_desc: string
+#% type: string
+#% description: Dilated clouds (bit 1)
 #% options: No, Yes
 #% multiple: No
 #% required : no
 #%end
 
 #%option
-#% key: terrain_occlusion
+#% key: cirrus
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Terrain Occlusion (bit 1)
+#% description: High confidence cirrus (bit 2)
 #% options: No, Yes
-#% multiple: No
-#% required : no
-#%end
-
-#%option
-#% key: radiometric_saturation
-#% key_desc: string
-#% type: string
-#% description: Unacceptable conditions for Radiometric Saturation (bits 2-3)
-#% options: No, 1-2, 3-4, 5
-#% descriptions: No bands contain saturation, 1-2 bands contain saturation, 3-4 bands contain saturation, 5 or more bands contain saturation
-##% descriptions: No;No bands contain saturation;1-2;1-2 bands contain saturation;3-4;3-4 bands contain saturation;5;5 or more bands contain saturation;
-#% multiple: No
+#% multiple: yes
 #% required : no
 #%end
 
@@ -79,7 +77,47 @@
 #% key: cloud
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Cloud (bit 4)
+#% description: High confidence cloud (bit 3)
+#% options: No, Yes
+#% multiple: yes
+#% required : no
+#%end
+
+#%option
+#% key: cloud_shadow
+#% key_desc: string
+#% type: string
+#% description: High confidence cloud shadow (bit 4)
+#% options: No, Yes
+#% multiple: yes
+#% required : no
+#%end
+
+#%option
+#% key: snow
+#% key_desc: string
+#% type: string
+#% description: High confidence snow (bit 5)
+#% options: No, Yes
+#% multiple: yes
+#% required : no
+#%end
+
+#%option
+#% key: clear
+#% key_desc: string
+#% type: string
+#% description: No cloud or dilated cloud (bit 6)
+#% options: No, Yes
+#% multiple: yes
+#% required : no
+#%end
+
+#%option
+#% key: water
+#% key_desc: string
+#% type: string
+#% description: Water (bit 7)
 #% options: No, Yes
 #% multiple: yes
 #% required : no
@@ -89,74 +127,52 @@
 #% key: cloud_confidence
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Cloud Confidence (bits 5-6)
-#% options: Not Determined, Low, Medium, High
+#% descriptions: No confidence level set, Low confidence, Medium confidence, High confidence
+##% descriptions: No;No confidence level set;Low;Low confidence;Medium;Medium confidence;High;High confidence;
+#% description: Cloud Confidence (bits 8-9)
+#% options: No, Low, Medium, High
 #% multiple: yes
 #% required : no
 #%end
 
 #%option
-#% key: cloud_shadow
+#% key: cloud_shadow_confidence
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Cloud Shadow Confidence (bits 7-8)
-#% options: Not Determined, Low, Medium, High
+#% descriptions: No confidence level set, Low confidence, Reserved, High confidence
+##% descriptions: No;No confidence level set;Low;Low confidence;Reserved;Reserved;High;High confidence;
+#% description: Cloud Confidence (bits 10-11)
+#% options: No, Low, Reserved, High
 #% multiple: yes
 #% required : no
 #%end
 
 #%option
-#% key: snow_ice
+#% key: snow_ice_confidence
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Snow/Ice Confidence (bits 9-10)
-#% options: Not Determined, Low, Medium, High
+#% descriptions: No confidence level set, Low confidence, Medium confidence, High confidence
+##% descriptions: No;No confidence level set;Low;Low confidence;Medium;Medium confidence;High;High confidence;
+#% description: Unacceptable conditions for Snow/Ice Confidence (bits 12-13)
+#% options: No, Low, Medium, High
 #% multiple: yes
 #% required : no
 #%end
 
 #%option
-#% key: cirrus
+#% key: cirrus_confidence
 #% key_desc: string
 #% type: string
-#% description: Unacceptable conditions for Cirrus Confidence (bits 11-12)
-#% options: Not Determined, Low, Medium, High
+#% descriptions: No confidence level set, Low confidence, Medium confidence, High confidence
+##% descriptions: No;No confidence level set;Low;Low confidence;Medium;Medium confidence;High;High confidence;
+#% description: Unacceptable conditions for Cirrus Confidence (bits 14-15)
+#% options: No, Low, Medium, High
 #% multiple: yes
 #% required : no
 #%end
-
-##%option
-##% key: reserved_13
-## % key_desc: string
-##% type: string
-##% description: Unacceptable conditions for Reserved (currently not used) (bit 13)
-##% options: No, Yes
-##% multiple: No
-##% required : no
-##%end
-
-##%option
-##% key: reserved_14
-##% key_desc: string
-##% type: string
-##% description: Unacceptable conditions for Reserved (currently not used) (bit 14)
-##% options: No, Yes
-##% multiple: No
-##% required : no
-##%end
-
-##%option
-##% key_desc: string
-##% key: reserved_15
-##% type: string
-##% description: Unacceptable conditions for Reserved (currently not used) (bit 15)
-##% options: No, Yes
-##% multiple: No
-##% required : no
-##%end
 
 #%rules
-#% required: designated_fill,terrain_occlusion,radiometric_saturation,cloud,cloud_confidence,cloud_shadow,snow_ice,cirrus
+#% required: fill,dilated_cloud,cirrus,cloud,cloud_shadow,snow,clear,water,cloud_confidence,cloud_shadow_confidence,snow_ice_confidence,cirrus_confidence
 #%end
 
 import os
