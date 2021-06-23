@@ -262,7 +262,7 @@ def main():
     number_of_bits = 16
     max_int = int(''.join([str(1)] * number_of_bits), 2)
 
-    # List for categories of unacceptable quality conditions in the QA band
+    # List for categories of unacceptable quality flags in the QA_PIXEL band
     categories = []
 
     # Loop over integer representations of a 16-bit binary pattern
@@ -285,12 +285,17 @@ def main():
             for quality_level in options[condition].split(','):
 
                 if binary_length == 1:
-                    requested_bits = single_bits[quality_level]
+
+                    if condition == 'fill':
+                        requested_bits = single_bit_fill[quality_level]
+
+                    else:
+                        requested_bits = single_bits[quality_level]
 
                 else:
 
-                    if condition == 'radiometric_saturation':
-                        requested_bits = radiometric_saturation[quality_level]
+                    if condition == 'cloud_shadow_confidence':
+                        requested_bits = double_bits_cloud_shadow_confidence[quality_level]
 
                     else:
                         requested_bits = double_bits[quality_level]
