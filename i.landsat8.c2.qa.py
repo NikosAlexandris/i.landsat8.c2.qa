@@ -163,35 +163,40 @@ if "GISBASE" not in os.environ:
 
 
 """
-Collection 1 Band Quality attributes
-https://landsat.usgs.gov/collectionqualityband
+Collection 2 Level 1/2 Band Quality attributes
+- https://www.usgs.gov/media/files/landsat-8-9-olitirs-level-1-data-format-control-book
+- https://www.usgs.gov/media/files/landsat-8-collection-2-level-2-data-format-control-book
 
-0     Designated Fill
-1     Terrain Occlusion
-2-3   Radiometric Saturation
-4     Cloud
-5-6   Cloud Confidence
-7-8   Cloud Shadow Confidence
-9-10  Snow/Ice confidence
-11-12 Cirrus confidence
-13
-14
-15
+Bit     Flag Description
+0       Fill
+1       Dilated Cloud
+2       Cirrus
+3       Cloud
+4       Cloud Shadow
+5       Snow
+6       Clear
+7       Water
+8-9     Cloud Confidence
+10-11   Cloud Shadow Confidence
+12-13   Snow/Ice Confidence
+14-15   Cirrus Confidence
 """
 
 # Binary start positions and length (single or double bits)
-quality_binaries = {'designated_fill': (0,1),
-        'terrain_occlusion': (1,1),
-        'radiometric_saturation': (2,2),
-        'cloud': (4,1),
-        'cloud_confidence': (5,2),
-        'cloud_shadow': (7,2),
-        'snow_ice': (9,2),
-        'cirrus': (11,2),
-        # 'reserved': (13,1),
-        # 'reserved': (14,1),
-        # 'reserved': (15,1)
-        }
+quality_binaries = {
+        'fill': (0,1),
+        'dilated_cloud': (1,1),
+        'cirrus': (2,1),
+        'cloud': (3,1),
+        'cloud_shadow': (4,1),
+        'snow': (5,1),
+        'clear': (6,1),
+        'water': (7,1),
+        'cloud_confidence': (8,2),
+        'cloud_shadow_confidence': (10,2),
+        'snow_ice_confidence': (12,2),
+        'cirrus_confidence': (14,2)
+}
 
 """
 For the single bits (0, 1, and 4):
