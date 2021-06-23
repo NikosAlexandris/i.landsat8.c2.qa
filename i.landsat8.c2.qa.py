@@ -385,7 +385,7 @@ def main():
 
     # Print to stdout if no output file is specified
     if not output:
-            sys.stdout.write(reclassification_rules)
+        sys.stdout.write(reclassification_rules)
 
     else:
         with open(output, 'w') as o:
