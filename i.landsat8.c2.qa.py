@@ -221,7 +221,7 @@ quality_binaries = {
 }
 
 """
-For the single bits (0, 1, and 4):
+For the single bits (1, 7):
     0 = "No" = This condition does not exist
     1 = "Yes" = This condition exists
 """
@@ -229,37 +229,45 @@ single_bits = {'No': '0',
                'Yes': '1'}
 
 """
-For radiometric saturation bits (2-3), read from left to right, represent how many bands contain saturation:
-
-00 - No bands contain saturation
-01 - 1-2 bands contain saturation
-10 - 3-4 bands contain saturation
-11 - 5 or more bands contain saturation
+For the single bits (1, 7):
+    Image = Image data
+    Fill = Fill data
 """
-radiometric_saturation = {'No': '00',
-                          '1-2': '01',
-                          '3-4': '10',
-                          '5': '11'}
+single_bit_fill = {
+        'Image': '0',
+        'Fill': '1'
+        }
+
 
 """
-For the remaining double bits (5-6, 7-8, 9-10, 11-12), read from left to
-right, represent levels of confidence that a condition exists:
+Double bits (8-9), read from left to right, represent levels of confidence that
+a condition exists:
 
-00 = "Not Determined" = Algorithm did not determine the status of this
-condition / "No" = This condition does not exist
-
-01 = "Low" = Algorithm has low to no confidence that this condition exists
-(0-33 percent confidence)
-
-10 = "Medium" = Algorithm has medium confidence that this condition exists
-(34-66 percent confidence)
-
-11 = "High" = Algorithm has high confidence that this condition exists
-(67-100 percent confidence
+00 = "No confidence level set"
+01 = "Low confidence"
+10 = "Medium confidence"
+11 = "High confidence"
 """
-double_bits = {'Not Determined': '00',
+
+double_bits = {'No confidence': '00',
                'Low': '01',
                'Medium': '10',
+               'High': '11'}
+
+
+"""
+Double bits (10-11, 12-13, 14-15), read from left to right, represent levels of
+confidence that a condition exists:
+
+00 = "No confidence level set"
+01 = "Low confidence"
+10 = "Reserved"
+11 = "High confidence"
+"""
+
+double_bits_cloud_shadow_confidence = {'No confidence': '00',
+               'Low': '01',
+               'Reserved': '10',
                'High': '11'}
 
 def main():
