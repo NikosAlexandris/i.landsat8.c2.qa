@@ -238,6 +238,40 @@ single_bit_fill = {
         'Fill': '1'
         }
 
+single_bit_dilated_cloud = {
+        'Cloud not dilated or no cloud': '0',
+        'Cloud dilation': '1'
+        }
+
+single_bit_cirrus = {
+        'No or low confidence': '0',
+        'High confidence': '1'
+        }
+
+single_bit_cloud = {
+        'Not high confidence': '0',
+        'High confidence': '1'
+        }
+
+single_bit_cloud_shadow = {
+        'Not high confidence': '0',
+        'High confidence': '1'
+        }
+
+single_bit_snow = {
+        'Not high confidence': '0',
+        'High confidence': '1'
+        }
+
+single_bit_clear = {
+        'Cloud or dilated cloud': '0',
+        'No cloud, no dilated cloud': '1'
+        }
+
+single_bit_water = {
+        'Land or Cloud': '0',
+        'Water': '1'
+        }
 
 """
 Double bits (8-9), read from left to right, represent levels of confidence that
