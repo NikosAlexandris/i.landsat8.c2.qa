@@ -2,17 +2,17 @@
 # -*- coding: utf-8 -*-
 
 """
- MODULE:       i.landsat8.qa
+ MODULE:       i.landsat8.c2.qa
 
- AUTHOR(S):    Stefan Blumentrath <stefan.blumentrath@nina.no>
-               Nikos Alexandris <nik@nikosalexandris.net>, adapted to
-               Collection 1 Level-1 Landsat 8 products
+ AUTHOR(S):    Nikos Alexandris <nik@nikosalexandris.net>
+               Stefan Blumentrath <stefan.blumentrath@nina.no>, author of
+               i.landsat8.qc
 
  PURPOSE:      Derive reclassification rules for user requested levels of
-               quality conditions for a Landsat 8 Collection 1 Level-1 Quality
-               Assessment band
+               quality conditions for a Landsat 8 Collection 2 Level-1/2
+               Quality Assessment band 'QA_PIXEL'
 
- COPYRIGHT:    (C) 2016 by the GRASS Development Team
+ COPYRIGHT:    (C) 2021 by the GRASS Development Team
 
                This program is free software under the GNU General Public
                License (>=v2). Read the file COPYING that comes with GRASS
@@ -20,15 +20,16 @@
 """
 
 #%Module
-#% description: Derive reclassification rules for user requested levels of quality conditions for a Landsat 8 Collection 1 Level-1 Quality  Assessment band
+#% description: Derive reclassification rules for user requested levels of quality conditions for a Landsat 8 Collection 2 Level-1/2 Quality Assessment band
 #% keyword: imagery
 #% keyword: qa
 #% keyword: bitpattern
 #% keyword: mask
 #% keyword: landsat8
-#% keyword: collection1
+#% keyword: collection-2
 #% keyword: level-1
-#% keyword: bqa
+#% keyword: level-2
+#% keyword: qa_pixel
 #%End
 
 #%option G_OPT_F_OUTPUT
