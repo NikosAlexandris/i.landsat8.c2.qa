@@ -1,6 +1,9 @@
 <h2 id="description">DESCRIPTION</h2>
 <p>Landsat Collection 2 Level-1 and Level-2 Quality Assessment (QA) bands (<code>QA_PIXEL</code>) provide useful information to users wanting to optimize the value of pixels as a first level indicator of certain conditions within Landsat data.</p>
-<p>The <em>i.landsat8.c2l2.qc</em> module generates rules which can be used with <a href="r.reclass.html">r.reclass</a> to reclassify the <code>QA_PIXEL</code> band according to user-requested pixel quality characteristics and create new raster maps that can function as masks. In the output raster map, the requested qualities will be set to 1 and all other values to NULL. Filtering then observations (pixels) of other Landsat bands is easy with the use of <code>r.mask</code>.</p>
+<p>The <em>i.landsat8.c2l2.qc</em> module generates rules which can be used with <a href="r.reclass.html">r.reclass</a> to reclassify the <code>QA_PIXEL</code> band according to user-requested pixel quality characteristics and create new raster maps that can function as masks. In the output raster map, the <em>requested qualities will be set to <code>NULL</code> and all other values to <code>1</code></em>. Filtering then observations (pixels) of other Landsat bands is easy with the use of <code>r.mask</code>.</p>
+<blockquote>
+<p>Requesting for <code>cloud=Yes</code> means that cloudy observations will be set to <code>NULL</code>, so they can be masked out in a subsequent masking step. All of the rest of pixels will be set to <code>1</code>, meaning they will be retained after masking.</p>
+</blockquote>
 <p>The Quality Assessment (<code>QA_PIXEL</code>) band from Landsat8 contains 16bit integer values that represent <em>bit-packed combinations of surface, atmosphere, and sensor conditions that can affect the overall usefulness of a given pixel</em>. The <code>QA_PIXEL</code> band is available for Landsat 8 OLI/TIRS Collection 2, Level <strong>1</strong> &amp; Level <strong>2</strong> products.</p>
 <p>The following quality relevant conditions are represented as <em>single bits</em> in the Landsat8 QA band:</p>
 <table>

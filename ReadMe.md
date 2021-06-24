@@ -7,10 +7,15 @@ of pixels as a first level indicator of certain conditions within Landsat data.
 
 The *i.landsat8.c2l2.qc* module generates rules which can be used with
 [r.reclass](r.reclass.html) to reclassify the `QA_PIXEL` band according to
-user-requested pixel quality characteristics and create new raster maps that can
-function as masks. In the output raster map, the requested qualities will be
-set to 1 and all other values to NULL. Filtering then observations (pixels) of
-other Landsat bands is easy with the use of `r.mask`.
+user-requested pixel quality characteristics and create new raster maps that
+can function as masks. In the output raster map, the _requested qualities will
+be set to `NULL` and all other values to `1`_. Filtering then observations
+(pixels) of other Landsat bands is easy with the use of `r.mask`.
+
+> Requesting for `cloud=Yes` means that cloudy observations will be set to
+> `NULL`, so they can be masked out in a subsequent masking step. All of the
+> rest of pixels will be set to `1`, meaning they will be retained after
+> masking.
 
 The Quality Assessment (`QA_PIXEL`) band from Landsat8 contains 16bit integer
 values that represent _bit-packed combinations of surface, atmosphere, and
