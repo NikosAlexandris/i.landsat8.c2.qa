@@ -140,10 +140,18 @@ r.reclass input=QA_PIXEL rules=qa_water.rules output=water_mask</code></pre>
 <li><p><strong><code>water=</code></strong> the quality flag of interest</p></li>
 <li><p><strong><code>output=</code></strong> the name for the file to write the generated reclassification rules</p></li>
 </ul>
+<div class="figure">
+<img src="figures/water_mask.png" alt="Water mask" />
+<p class="caption">Water mask</p>
+</div>
 <p>and the same example with the addition of the <strong><code>i</code></strong> flag which will invert the generated reclassification rules -- think of an inverted mask!</p>
 <pre><code>i.landsat8.c2.qa -i water=Yes output=qa_inverted_water.rules
 
 r.reclass input=QA_PIXEL rules=qa_inverted_water.rules output=inverted_water_mask</code></pre>
+<div class="figure">
+<img src="figures/inverted_water_mask.png" alt="Inverted water mask" />
+<p class="caption">Inverted water mask</p>
+</div>
 <h2 id="see-also">SEE ALSO</h2>
 <p><em><a href="r.reclass.html">r.reclass</a>, <a href="i.modis.qc.html">i.modis.qc</a>, <a href="r.bitpattern.html">r.bitpattern</a>, <a href="i.landsat8.swlst.html">i.landsat8.swlst</a></em></p>
 <h2 id="references">REFERENCES</h2>
