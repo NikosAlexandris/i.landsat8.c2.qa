@@ -1,189 +1,155 @@
-<h2>DESCRIPTION</h2>
-
-Removing unreliable pixels is a fundamental and one of the first steps in
-remote sensing. Landsat8 Collection 2 (Level 1 & Level 2) products provide a
-Quality Assessment (QA) band which can be used for this purpose.
-
-<p>The <em>i.landsat8.c2l2.qc</em> module generates reclassification rule files
- which can be used in <a href="r.reclass.html">r.reclass</a> for filtering the
- QA band according to pixel quality characteristics the user defines as
- unacceptable.</p>
-
-<p>Values defined as unacceptable for a given condition will be set to NULL
-in the output raster map. All other values will be set to 1.</p>
-
-<p>The Quality Assessment (QA_PIXEL) band from Landsat8 contains 16bit integer
-values that represent "bit-packed combinations of surface, atmosphere, and
-sensor conditions that can affect the overall usefulness of a given pixel".
-<br>
-The QA_PIXEL band is available for Landsat 8 OLI/TIRS Collection 2, Level 1 &
-Level 2 products.</p>
-
-<p>The following quality relevant conditions are represented as "single bits" 
-in the Landsat8 QA band:</p>
-
-<table border="1" padding="0" spacing="1">
-  <tr>
-    <td>Flag</td>
-    <td>Bit Position</td>
-  </tr>
-  <tr>
-    <td>Fill</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td>Dilated Cloud</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>Cirrus</td>
-    <td>2</td>
-  </tr>
-  <tr>
-    <td>Cloud</td>
-    <td>3</td>
-  </tr>
-  <tr>
-    <td>Cloud Shadow</td>
-    <td>4</td>
-  </tr>
-  <tr>
-    <td>Snow</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>Clear</td>
-    <td>6</td>
-  </tr>
-  <tr>
-    <td>Water</td>
-    <td>7</td>
-  </tr>
+<h2 id="description">DESCRIPTION</h2>
+<p>Landsat Collection 2 Level-1 and Level-2 Quality Assessment (QA) bands (<code>QA_PIXEL</code>) provide useful information to users wanting to optimize the value of pixels as a first level indicator of certain conditions within Landsat data.</p>
+<p>The <em>i.landsat8.c2l2.qc</em> module generates rules which can be used with <a href="r.reclass.html">r.reclass</a> to reclassify the <code>QA_PIXEL</code> band according to user-requested pixel quality characteristics and create new raster maps that can function as masks. In the output raster map, the requested qualities will be set to 1 and all other values to NULL. Filtering then observations (pixels) of other Landsat bands is easy with the use of <code>r.mask</code>.</p>
+<p>The Quality Assessment (<code>QA_PIXEL</code>) band from Landsat8 contains 16bit integer values that represent <em>bit-packed combinations of surface, atmosphere, and sensor conditions that can affect the overall usefulness of a given pixel</em>. The <code>QA_PIXEL</code> band is available for Landsat 8 OLI/TIRS Collection 2, Level <strong>1</strong> &amp; Level <strong>2</strong> products.</p>
+<p>The following quality relevant conditions are represented as <em>single bits</em> in the Landsat8 QA band:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Bit Position</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fill</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Dilated Cloud</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Cirrus</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>Cloud</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>Cloud Shadow</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Snow</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Clear</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>Water</td>
+<td>7</td>
+</tr>
+</tbody>
 </table>
-
-<p>Possible choices for "single bit" flags:</p>
-
-<table border="1" padding="0" spacing="1">
-  <tr>
-    <td>Value</td>
-	<td>Description</td>
-	<td>Bit representation</td>
-  </tr>
-  <tr>
-    <td>No</td>
-	<td>No or low confidence or not high confidence</td>
-	<td>0</td>
-  </tr>
-  <tr>
-    <td>Yes</td>
-	<td>Fill image or Cloud dilation or High confidence</td>
-	<td>1</td>
-  </tr>
+<p>Possible choices for <em>single bit</em> flags:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+<th>Bit representation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No</td>
+<td>No or low confidence or not high confidence</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Yes</td>
+<td>Fill image or Cloud dilation or High confidence</td>
+<td>1</td>
+</tr>
+</tbody>
 </table>
-
-<p>The following quality relevant conditions are represented as "double bits" 
-in the Landsat8 QA band:</p>
-
-<table border="1" padding="0" spacing="1">
-  <tr>
-    <td>Flag</td>
-    <td>Bit Position</td>
-  </tr>
-  <tr>
-    <td>Cloud Confidence</td>
-    <td>8-9</td>
-  </tr>
-  <tr>
-    <td>Cloud Shadow Confidence</td>
-    <td>10-11</td>
-  </tr>
-  <tr>
-    <td>Snow/Ice Confidence</td>
-    <td>12-13</td>
-  </tr>
-  <tr>
-    <td>Cirrus Confidence</td>
-    <td>14-15</td>
-  </tr>
+<p>The following quality relevant conditions are represented as <em>double bits</em> in the Landsat8 QA band:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Bit Position</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cloud Confidence</td>
+<td>8-9</td>
+</tr>
+<tr class="even">
+<td>Cloud Shadow Confidence</td>
+<td>10-11</td>
+</tr>
+<tr class="odd">
+<td>Snow/Ice Confidence</td>
+<td>12-13</td>
+</tr>
+<tr class="even">
+<td>Cirrus Confidence</td>
+<td>14-15</td>
+</tr>
+</tbody>
 </table>
-
-<p>Possible choices for the "double bit" flags:</p>
-
-<table border="1" padding="0" spacing="1">
-  <tr>
-    <td>Value</td>
-	<td>Description</td>
-	<td>Bit representation</td>
-  </tr>
-  <tr>
-    <td>No</td>
-	<td>No confidence level set</td>
-	<td>00</td>
-  </tr>
-  <tr>
-    <td>Low</td>
-	<td>Low confidence</td>
-	<td>01</td>
-  </tr>
-  <tr>
-    <td>Maybe</td>
-	<td>Medium confidence (or Reserved)</td>
-	<td>10</td>
-  </tr>
-  <tr>
-    <td>High</td>
-	<td>High confidence</td>
-	<td>11</td>
-  </tr>
+<p>Possible choices for the <em>double bit</em> flags:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Value</th>
+<th>Description</th>
+<th>Bit representation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>No</td>
+<td>No confidence level set</td>
+<td>00</td>
+</tr>
+<tr class="even">
+<td>Low</td>
+<td>Low confidence</td>
+<td>01</td>
+</tr>
+<tr class="odd">
+<td>Maybe</td>
+<td>Medium confidence (or Reserved)</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>High</td>
+<td>High confidence</td>
+<td>11</td>
+</tr>
+</tbody>
 </table>
+<h2 id="notes">NOTES</h2>
+<blockquote>
+<p>This module is largely based on <a href="https://gitlab.com/NikosAlexandris/i.landsat8.qa">i.landsat8.qa</a> which was based on older versions of i.landsat.qc (see <a href="https://github.com/OSGeo/grass-addons/commit/1e9d32fc15c771fa423c2ecde2dfe000b6255858">Remove i.landsat8.qc (replaced by i.landsat.qa) (#505)</a></p>
+</blockquote>
+<h2 id="example">EXAMPLE</h2>
+<p>Let's create a <code>water</code> raster mask:</p>
+<pre><code>i.landsat8.c2.qa water=Yes output=qa_water.rules
 
-<h2>NOTES</h2>
-
-Landsat Collection 2 Level-1 and Level-2 Quality Assessment (QA) bands provide
-useful information to users wanting to optimize the value of pixels as a first
-level indicator of certain conditions within Landsat data.
-
-See:
-<a href=https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1822_Landsat8-9-OLI-TIRS-C2-L1-DFCB-v6.pdf>Landsat 8-9Operational Land Imager (OLI) -Thermal Infrared Sensor (TIRS)Collection 2 Level 1 (L1)Data Format Control Book (DFCB)</a>
-<a href=https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1328_Landsat8-9-OLI-TIRS-C2-L2-DFCB-v6.pdf>Landsat 8-9Operational Land Imager (OLI) -   Thermal Infrared Sensor (TIRS)  Collection 2 Level 2 (L2) Data Format Control Book (DFCB)</a>.
-
-<h2>EXAMPLE</h2>
-
-Let's create a <code>water</code> raster mask:
-
-<div class="code">
-<pre><code>i.landsat8.c2.qa water=Yes output=qa_water.rules</code></pre>
-<pre><code>r.reclass input=QA_PIXEL rules=qa_water.rules output=water_mask</code></pre>
-</div>
+r.reclass input=QA_PIXEL rules=qa_water.rules output=water_mask</code></pre>
 <p>where:</p>
 <ul>
 <li><p><strong><code>water=</code></strong> the quality flag of interest</p></li>
 <li><p><strong><code>output=</code></strong> the name for the file to write the generated reclassification rules</p></li>
 </ul>
+<p>and the same example with the addition of the <strong><code>i</code></strong> flag which will invert the generated reclassification rules -- think of an inverted mask!</p>
+<pre><code>i.landsat8.c2.qa -i water=Yes output=qa_inverted_water.rules
 
-and the same example with the addition of the <strong><code>i</code></strong>
-    flag which will invert the generated reclassification rules -- think of an
-    inverted mask!
-
-<div class="code">
-<pre><code>i.landsat8.c2.qa -i water=Yes output=qa_inverted_water.rules</code></pre>
-<pre><code>r.reclass input=QA_PIXEL rules=qa_inverted_water.rules output=inverted_water_mask</code></pre>
-</div>
-
-<h2>SEE ALSO</h2>
-
-<em>
-<a href="r.reclass.html">r.reclass</a>,
-<a href="i.modis.qc.html">i.modis.qc</a>,
-<a href="r.bitpattern.html">r.bitpattern</a>,
-<a href="i.landsat8.swlst.html">i.landsat8.swlst</a>
-</em>
-
-<h2>REFERENCES</h2>
-
-<em><a href=http://landsat.usgs.gov/qualityband.php>http://landsat.usgs.gov/qualityband.php</a>
-<a href=https://landsat.usgs.gov/documents/LDCM_CVT_ADD.pdf>https://landsat.usgs.gov/documents/LDCM_CVT_ADD.pdf</a></em>
-
-<h2>AUTHOR</h2>
-
+r.reclass input=QA_PIXEL rules=qa_inverted_water.rules output=inverted_water_mask</code></pre>
+<h2 id="see-also">SEE ALSO</h2>
+<p><em><a href="r.reclass.html">r.reclass</a>, <a href="i.modis.qc.html">i.modis.qc</a>, <a href="r.bitpattern.html">r.bitpattern</a>, <a href="i.landsat8.swlst.html">i.landsat8.swlst</a></em></p>
+<h2 id="references">REFERENCES</h2>
+<ul>
+<li><a href="https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1822_Landsat8-9-OLI-TIRS-C2-L1-DFCB-v6.pdf">Landsat 8-9Operational Land Imager (OLI) -Thermal Infrared Sensor (TIRS)Collection 2 Level 1 (L1)Data Format Control Book (DFCB)</a></li>
+<li><a href="https://prd-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1328_Landsat8-9-OLI-TIRS-C2-L2-DFCB-v6.pdf">Landsat 8-9Operational Land Imager (OLI) - Thermal Infrared Sensor (TIRS) Collection 2 Level 2 (L2) Data Format Control Book (DFCB)</a>.</li>
+</ul>
+<h2 id="author">AUTHOR</h2>
 <p>Nikos Alexandris, Joint Research Centre, European Commission, Ispra (Italy)</p>
